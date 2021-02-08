@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body bgcolor="#B5EAAA" >
+    <form action='/loginsuccess' method="post">
+        <center>
+            <br><br><br>
+            <b><i><font color="#000080" size="20">LOGIN</font></i></b><br><br><br>
+            <input type="text" id="semail" name="email" placeholder="eg-user@gmail.com"  required autofocus style="font-size: 13pt; height: 40px; width:500px; "><br>
+            <span id="spanemail" style="color:red"></span><br><br>
+            <input type="text" id="phonenumber" name="pnumber" placeholder="phone number,must be 10 digits" maxlength="10" minlength="10" required autofocus style="font-size: 13pt; height: 40px; width:500px; "><br>
+            <span id="spanmessage" ></span><br><br>
+            <input type="password" id="password" name="pswd" placeholder="passwords between 8-15" maxlength="15" required autofocus style="font-size: 13pt; height: 40px; width:500px; "><br>
+            <span id="spanpassword" style="color:red"></span><br><br><br>
+            <input type="submit" value="login" style="font-size: 30px; height: 45px; width: 130px">
+        </center>
+    </form>
+    <center>
+            <a href="/forgotpassword"><h5>forgot password</h5> </a>
+    </center>
+    <center><font color="grey" style="italic">or</font></center>
+    <form>
+        <center> <h3><font color="brown"> Don't have an account</font></h3>
+            <div><a href="/signup"><h5>sign up</h5> </a></div>
+        </center>
+    </form>
+</body>
+</html>
