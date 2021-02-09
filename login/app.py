@@ -76,5 +76,35 @@ def loginsuccess():
             else:
                 return render_template("results.html", commontext="login complete")
 
+
+@app.route('/forgotpassword', methods=["POST", "GET"])
+def forgotpassword():
+    return render_template("forgotpassword.html")
+
+
+@app.route('/forgotpasswordsuccess', methods=["POST", "GET"])
+def forgotpasswordsuccess():
+    if request.method == "POST":
+        email = request.form["femail"]
+        phoneno = request.form["fphoneno"]
+        passwd1 = request.form["fpassword"]
+        passwd2 = request.form["frpassword"]
+
+        with sqlite3.connect('database.db')as conn:
+            c = conn.cursor()
+            c.execute("SELECT * FROM logind WHERE phone_number=?", (phoneno,))
+            row = c.fetchone()
+            password1 = bcrypt.hashpw(passwd1.encode('utf8'), bcrypt.gensalt())
+            if not row:
+                return render_template("results.html", commontext="check phone number")
+            elif not row[0] == email:
+                return render_template("results.html", commontext="error occured in email id")
+            elif not passwd1 == passwd2:
+                return render_template("results.html", commontext="does not match passwords")
+            else:
+                c.execute("update logind SET password=? WHERE phone_number=?", (password1, phoneno,))
+                return render_template("results.html", commontext="password successfully updated")
+
+
 if __name__ == '__main__':
     app.run(debug=True)
