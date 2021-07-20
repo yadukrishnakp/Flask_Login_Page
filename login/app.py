@@ -63,6 +63,7 @@ def loginsuccess():
         email = request.form["email"]
         pno = request.form["pnumber"]
         password = request.form["pswd"]
+        password = password.encode('utf8')
         with sqlite3.connect('database.db')as conn:
             c = conn.cursor()
             c.execute("SELECT * FROM logind WHERE phone_number=?", (pno,))
@@ -71,7 +72,7 @@ def loginsuccess():
                 return render_template("results.html", commontext="haven't account on this phone number")
             elif not rows[0] == email:
                 return render_template("results.html", commontext="check email")
-            elif not bcrypt.hashpw(password.encode('utf8'), rows[3]) == rows[3]:
+            elif not bcrypt.hashpw(password, rows[3])==rows[3]:
                 return render_template("results.html", commontext="error in password")
             else:
                 return render_template("results.html", commontext="login complete")
